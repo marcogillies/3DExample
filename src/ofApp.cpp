@@ -7,11 +7,21 @@ void ofApp::setup(){
     // in front
     ofEnableDepthTest();
     
+    parent.setPosition(ofGetHeight()*0.5, ofGetWidth()*0.5, 0);
+    
+    box.setParent(parent);
+    box.setPosition(200, 0, 0);
+    box.setOrientation(ofVec3f(45, 0, 0));
     // set the size of the box
     box.set( 100 );
+
+    box.rotate(45, 1.0, 0.0, 0.0);
     
-    // set the size fo the sphere
-    sphere.setRadius(200);
+    box.setScale(2, 0.5, 1.0);
+    
+    sphere.setParent(parent);
+    sphere.setRadius(100);
+    sphere.setPosition(-200, 0, 0);
     
     // position the camera
     camera.setPosition(ofGetWidth()/2,
@@ -48,19 +58,13 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-    ofClear(0);
+    ofClear(255);
     
-    // position on the box at hte middle of the screen
-    // and spin it around x and y
-    box.setPosition(ofGetWidth()*.5 - 200,
-                    ofGetHeight()*.5, 0);
-    box.rotate(0.1, 1.0, 0.0, 0.0);
-    box.rotate(0.2, 0, 1.0, 0.0);
+    parent.rotate(0.2, 0, 1.0, 0.0);
+    
+    
     
     // same for the sphere
-    sphere.setPosition(ofGetWidth()*.5 + 200,
-                    ofGetHeight()*.5, 0);
-    sphere.rotate(0.1, 1.0, 0.0, 0.0);
     sphere.rotate(0.2, 0, 1.0, 0.0);
     
     
@@ -73,7 +77,7 @@ void ofApp::draw(){
     camera.begin();
     material.begin();  // start the material
                        // all objects between begin and
-                       // end will be drawn with this texture
+                       // end will be drawn with this texturep
     box.draw();
     material.end();
     
